@@ -88,6 +88,7 @@ function showPokemon(currentPokemon) {
     addTypes(currentPokemon);
 
     document.getElementById('search').classList.add('d-none');
+    document.getElementById('bg').classList.add('d-none');
 }
 
 
@@ -124,9 +125,11 @@ function hideCards() {
 function showCards() {
     document.getElementById('content').classList.remove('d-none');
     document.getElementById('search').classList.remove('d-none');
+    document.getElementById('bg').classList.remove('d-none');
     document.getElementById('aboutPokemon').classList.add('d-none');
     document.getElementById('info').classList.add('d-none');
     document.getElementById('info-title').classList.add('d-none');
+
 
 }
 
