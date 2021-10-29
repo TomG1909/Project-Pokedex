@@ -1,15 +1,16 @@
 let currentPokemon;
-
+let allPokemons = [];
 
 async function loadPokemon() {
     let url = 'https://pokeapi.co/api/v2/pokemon?limit=50&offset=0';
     let response = await fetch(url);
-    let allPokemons = await response.json();
-    console.log('loaded Pokemon', allPokemons);
+    let pokemonList = await response.json();
+    console.log('loaded Pokemon', pokemonList);
 
 
-    for (let i = 0; i < allPokemons['results'].length; i++) {
-        let currentPokemon = await getPokemonUrl(allPokemons['results'][i]['url']);
+    for (let i = 0; i < pokemonList['results'].length; i++) {
+        let currentPokemon = await getPokemonUrl(pokemonList['results'][i]['url']);
+        allPokemons.push(currentPokemon);
         let pokemonImg = currentPokemon['sprites']['other']['official-artwork']['front_default'];
         let type = currentPokemon['types'][0]['type']['name'];
         document.getElementById('content').innerHTML +=
@@ -27,37 +28,36 @@ async function loadPokemon() {
 async function getPokemonUrl(url) {
 
     let response = await fetch(url);
-    let allPokemons = await response.json();
-    return allPokemons;
+    let pokemon = await response.json();
+    return pokemon;
 }
 
-async function filterNames(currentPokemon, type, pokemonImg) {
-
-    let url = 'https://pokeapi.co/api/v2/pokemon?limit=50&offset=0';
-    let response = await fetch(url);
-    let allPokemons = await response.json();
+function filterNames() {
 
 
-    let search = document.getElementById('search').value;
+    let search = document.getElementById('search-field').value;
     search = search.toLowerCase();
     console.log(search);
     let result = document.getElementById('result');
     result.innerHTML = '';
 
-    for (let o = 0; o < allPokemons['results'].length; o++) {
-        const PokemonName = allPokemons['results'][o]['name'];
+    let searchResult = allPokemons.filter(pokemon => pokemon.name.includes(search));
+
+    for (let o = 0; o < searchResult.length; o++) {
+        const PokemonName = searchResult['name'];
 
 
         if (PokemonName.toLowerCase().includes(search)) {
             result.innerHTML +=
-                `<div class="pokemon-card ${type}" onclick='showPokemon(${JSON.stringify(currentPokemon)})'><span class="name">${PokemonName}</span>
-                <img src="${pokemonImg}"class="pokeimage">
-                <div class="types-container" id="types${currentPokemon['name']}"></div>
+                `<div class="pokemon-card ${searchResult[o]['types'][0]['type']['name']}" onclick='showPokemon(${JSON.stringify(searchResult[o])})'><span class="name">${PokemonName}</span>
+                <img src="${searchResult[o]['sprites']['other']['official-artwork']['front_default']}"class="pokeimage">
+                <div class="types-container" id="types${PokemonName}"></div>
                 
                 </div>`;
 
         }
     }
+
 
 }
 
@@ -86,6 +86,8 @@ function showPokemon(currentPokemon) {
     hideCards();
     showAbout(currentPokemon);
     addTypes(currentPokemon);
+
+    document.getElementById('search').classList.add('d-none');
 }
 
 
@@ -121,6 +123,7 @@ function hideCards() {
 
 function showCards() {
     document.getElementById('content').classList.remove('d-none');
+    document.getElementById('search').classList.remove('d-none');
     document.getElementById('aboutPokemon').classList.add('d-none');
     document.getElementById('info').classList.add('d-none');
     document.getElementById('info-title').classList.add('d-none');

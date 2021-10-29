@@ -3,6 +3,65 @@ body {
     font-family: 'Georama', sans-serif;
 }
 
+@font-face {
+    font-family: Pokemon Solid;
+    src: url('fonts/pokemon-solid.ttf');
+}
+
+.pokedex {
+    font-family: 'Pokemon Solid';
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: yellow !important;
+    z-index: 2;
+}
+
+.bg-cards {
+    background-color: #1b81dbde;
+}
+
+.bg-image {
+    background-image: url('img/pokeball.png');
+    position: fixed;
+    height: 200%;
+    width: 200%;
+}
+
+.outline {
+    color: #fff;
+    text-shadow: #dce4eb 0px 0px 10px;
+    -webkit-font-smoothing: antialiased;
+}
+
+#search {
+    display: flex;
+    flex-direction: column;
+}
+
+#search-field {
+    z-index: 2;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+button {
+    z-index: 2;
+    border-radius: 8px !important;
+    background-color: yellow;
+    border-color: #0c89f7 !important;
+    border: 4px;
+    color: #1b81db;
+    font-weight: bold;
+    margin-left: 20px !important;
+}
+
 .d-flex-center {
     display: flex;
     justify-content: center;
@@ -63,6 +122,7 @@ body {
     padding: 15px;
     border-radius: 10px;
     cursor: pointer;
+    z-index: 2;
 }
 
 .card-container {

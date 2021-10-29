@@ -17,10 +17,16 @@
 </head>
 
 <body onload="loadPokemon()">
-    <div>Pokedex</div><input type="text" id="search" onkeydown="filterNames()">
-    <div id="result"></div>
-    <div id="container"></div>
-    <div class="card-container" id="content"></div>
+    <div class="bg-cards">
+        <div class="bg-image"></div>
+        <div id="search">
+            <div class="pokedex outline">Pokedex</div>
+            <div class="search-container"><input type="text" id="search-field"><button onclick="filterNames()">catch 'em all!</button></div>
+        </div>
+        <div id="result"></div>
+        <div id="container"></div>
+        <div class="card-container" id="content"></div>
+    </div>
     <div id="aboutPokemon"></div>
 
     <div id="info-title"></div>
