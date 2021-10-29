@@ -17,11 +17,11 @@
 </head>
 
 <body onload="loadPokemon()">
-    <div class="bg-cards">
-        <div class="bg-image" id="bg"></div>
+    <div class="bg-cards" id="bg">
+        <div class="bg-image" id="bg-img"></div>
         <div id="search">
             <div class="pokedex outline">Pokedex</div>
-            <div class="search-container"><input type="text" id="search-field"><button onclick="filterNames()">catch 'em all!</button></div>
+            <div class="search-container"><input type="text" placeholder="search...." id="search-field" onkeydown="filterNames()"></div>
         </div>
         <div id="result"></div>
         <div id="container"></div>

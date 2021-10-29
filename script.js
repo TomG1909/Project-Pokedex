@@ -37,14 +37,14 @@ function filterNames() {
 
     let search = document.getElementById('search-field').value;
     search = search.toLowerCase();
-    console.log(search);
+
     let result = document.getElementById('result');
     result.innerHTML = '';
 
     let searchResult = allPokemons.filter(pokemon => pokemon.name.includes(search));
 
     for (let o = 0; o < searchResult.length; o++) {
-        const PokemonName = searchResult['name'];
+        const PokemonName = searchResult[o]['name'];
 
 
         if (PokemonName.toLowerCase().includes(search)) {
@@ -57,6 +57,9 @@ function filterNames() {
 
         }
     }
+
+    hideCards();
+    addTypesSmallCards(currentPokemon);
 
 
 }
@@ -89,6 +92,7 @@ function showPokemon(currentPokemon) {
 
     document.getElementById('search').classList.add('d-none');
     document.getElementById('bg').classList.add('d-none');
+    document.getElementById('bg-img').classList.add('d-none');
 }
 
 
@@ -114,6 +118,7 @@ function addTypesSmallCards(currentPokemon) {
 
 }
 
+
 function hideCards() {
     document.getElementById('content').classList.add('d-none');
     document.getElementById('aboutPokemon').classList.remove('d-none');
@@ -126,6 +131,7 @@ function showCards() {
     document.getElementById('content').classList.remove('d-none');
     document.getElementById('search').classList.remove('d-none');
     document.getElementById('bg').classList.remove('d-none');
+    document.getElementById('bg-img').classList.remove('d-none');
     document.getElementById('aboutPokemon').classList.add('d-none');
     document.getElementById('info').classList.add('d-none');
     document.getElementById('info-title').classList.add('d-none');

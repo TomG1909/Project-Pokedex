@@ -19,6 +19,7 @@ body {
 
 .bg-cards {
     background-color: #1b81dbde;
+    height: 100vh;
 }
 
 .bg-image {
@@ -69,6 +70,13 @@ button {
 
 #types {
     display: flex;
+}
+
+#result {
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .container {
