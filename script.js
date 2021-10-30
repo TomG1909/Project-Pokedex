@@ -1,4 +1,3 @@
-let currentPokemon;
 let allPokemons = [];
 
 async function loadPokemon() {
@@ -11,19 +10,30 @@ async function loadPokemon() {
     for (let i = 0; i < pokemonList['results'].length; i++) {
         let currentPokemon = await getPokemonUrl(pokemonList['results'][i]['url']);
         allPokemons.push(currentPokemon);
-        let pokemonImg = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-        let type = currentPokemon['types'][0]['type']['name'];
+
+
+    }
+    showPokemonCards(allPokemons);
+
+}
+
+function showPokemonCards(pokemons) {
+
+    document.getElementById('content').innerHTML = "";
+    for (let j = 0; j < pokemons.length; j++) {
+        let pokemonImg = pokemons[j]['sprites']['other']['official-artwork']['front_default'];
+        let type = pokemons[j]['types'][0]['type']['name'];
         document.getElementById('content').innerHTML +=
-            `<div class="pokemon-card ${type}" onclick='showPokemon(${JSON.stringify(currentPokemon)})'><span class="name">${currentPokemon['name']}</span>
+            `<div class="pokemon-card ${type}" onclick='showPokemon(${JSON.stringify(pokemons[j])})'><span class="name">${pokemons[j]['name']}</span>
             <img src="${pokemonImg}"class="pokeimage">
-            <div class="types-container"id="types${currentPokemon['name']}"></div>
+            <div class="types-container"id="types${pokemons[j]['name']}"></div>
             </div>`;
 
-        addTypesSmallCards(currentPokemon);
-
+        addTypesSmallCards(pokemons[j]);
     }
 
 }
+
 
 async function getPokemonUrl(url) {
 
@@ -43,27 +53,15 @@ function filterNames() {
     document.getElementById('result').classList.remove('d-none');
     let searchResult = allPokemons.filter(pokemon => pokemon.name.includes(search));
 
-    for (let o = 0; o < searchResult.length; o++) {
-        const PokemonName = searchResult[o]['name'];
 
 
-        if (PokemonName.toLowerCase().includes(search)) {
-            result.innerHTML +=
-                `<div class="pokemon-card ${searchResult[o]['types'][0]['type']['name']}" onclick='showPokemon(${JSON.stringify(searchResult[o])})'><span class="name">${PokemonName}</span>
-                <img src="${searchResult[o]['sprites']['other']['official-artwork']['front_default']}"class="pokeimage">
-                <div class="types-container" id="types${PokemonName}"></div>
-                
-                </div>`;
+    if (searchResult.length == 0) {
+        alert('No Pokemon found!');
 
-            hideCards();
 
-        } else {
-            document.getElementById('result').classList.add('d-none');
-            loadPokemon();
-        }
+    } else {
+        showPokemonCards(searchResult);
     }
-
-
 
 }
 
@@ -99,27 +97,6 @@ function showPokemon(currentPokemon) {
 }
 
 
-function addTypes(currentPokemon) {
-    for (let m = 0; m < currentPokemon['types'].length; m++) {
-
-        let PokeType = currentPokemon['types'][m]['type']['name'];
-
-        document.getElementById('types').innerHTML += `<div class="bg-type">${PokeType}</div>`;
-
-    }
-}
-
-function addTypesSmallCards(currentPokemon) {
-    for (let n = 0; n < currentPokemon['types'].length; n++) {
-
-        let PokeType = currentPokemon['types'][n]['type']['name'];
-
-        document.getElementById('types' + currentPokemon['name']).innerHTML +=
-            `<div class="cardtype">${PokeType}</div>`;
-
-    }
-
-}
 
 
 function hideCards() {
@@ -174,9 +151,9 @@ function showAbilities(currentPokemon) {
     document.getElementById('info-title').innerHTML = ``;
     document.getElementById('info').innerHTML = ``;
 
-    for (let j = 0; j < currentPokemon['abilities'].length; j++) {
+    for (let k = 0; k < currentPokemon['abilities'].length; k++) {
 
-        let ability = currentPokemon['abilities'][j]['ability']['name'];
+        let ability = currentPokemon['abilities'][k]['ability']['name'];
 
         document.getElementById('info-title').innerHTML = `<div class="categories">Abilities</div>`;
         document.getElementById('info').innerHTML += `<div class="d-flex-center">${ability}</div>`;
@@ -190,9 +167,9 @@ function showMoves(currentPokemon) {
     document.getElementById('info').innerHTML = ``;
     document.getElementById('info-title').innerHTML = ``;
 
-    for (let k = 0; k < currentPokemon['moves'].length; k++) {
+    for (let l = 0; l < currentPokemon['moves'].length; l++) {
 
-        let move = currentPokemon['moves'][k]['move']['name'];
+        let move = currentPokemon['moves'][l]['move']['name'];
 
         document.getElementById('info-title').innerHTML = `<div class="categories">Moves</div>`;
         document.getElementById('info').innerHTML += `<div class="d-flex-center">${move}</div>`;
@@ -206,10 +183,10 @@ function showStats(currentPokemon) {
     document.getElementById('info').innerHTML = ``;
     document.getElementById('info-title').innerHTML = ``;
 
-    for (let l = 0; l < currentPokemon['stats'].length; l++) {
+    for (let m = 0; m < currentPokemon['stats'].length; m++) {
 
-        let progress = currentPokemon['stats'][l]['base_stat'];
-        let skillname = currentPokemon['stats'][l]['stat']['name'];
+        let progress = currentPokemon['stats'][m]['base_stat'];
+        let skillname = currentPokemon['stats'][m]['stat']['name'];
 
         document.getElementById('info-title').innerHTML = `<div class="categories">Stats</div>`;
 
@@ -222,6 +199,29 @@ function showStats(currentPokemon) {
         activeLinkStats();
     }
 }
+
+function addTypes(currentPokemon) {
+    for (let n = 0; n < currentPokemon['types'].length; n++) {
+
+        let PokeType = currentPokemon['types'][n]['type']['name'];
+
+        document.getElementById('types').innerHTML += `<div class="bg-type">${PokeType}</div>`;
+
+    }
+}
+
+function addTypesSmallCards(currentPokemon) {
+    for (let o = 0; o < currentPokemon['types'].length; o++) {
+
+        let PokeType = currentPokemon['types'][o]['type']['name'];
+
+        document.getElementById('types' + currentPokemon['name']).innerHTML +=
+            `<div class="cardtype">${PokeType}</div>`;
+
+    }
+
+}
+
 
 function activeLinkAbout() {
     document.getElementById('about').classList.add('active-link');
