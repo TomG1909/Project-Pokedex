@@ -14,7 +14,6 @@ async function loadPokemon() {
 
     }
     showPokemonCards(allPokemons);
-
 }
 
 function showPokemonCards(pokemons) {
@@ -66,8 +65,6 @@ function filterNames() {
 }
 
 
-
-
 function showPokemon(currentPokemon) {
 
     let pokemonImg = currentPokemon['sprites']['other']['official-artwork']['front_default'];
@@ -116,8 +113,6 @@ function showCards() {
     document.getElementById('info').classList.add('d-none');
     document.getElementById('info-title').classList.add('d-none');
     document.getElementById('result').classList.add('d-none');
-
-
 }
 
 
