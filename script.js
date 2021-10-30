@@ -40,7 +40,7 @@ function filterNames() {
 
     let result = document.getElementById('result');
     result.innerHTML = '';
-
+    document.getElementById('result').classList.remove('d-none');
     let searchResult = allPokemons.filter(pokemon => pokemon.name.includes(search));
 
     for (let o = 0; o < searchResult.length; o++) {
@@ -55,11 +55,14 @@ function filterNames() {
                 
                 </div>`;
 
+            hideCards();
+
+        } else {
+            document.getElementById('result').classList.add('d-none');
+            loadPokemon();
         }
     }
 
-    hideCards();
-    addTypesSmallCards(currentPokemon);
 
 
 }
@@ -135,6 +138,7 @@ function showCards() {
     document.getElementById('aboutPokemon').classList.add('d-none');
     document.getElementById('info').classList.add('d-none');
     document.getElementById('info-title').classList.add('d-none');
+    document.getElementById('result').classList.add('d-none');
 
 
 }
